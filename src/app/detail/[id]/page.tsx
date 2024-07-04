@@ -2,20 +2,21 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import PokemonDetail from '@/components/(detail)/PokemonDetail';
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 
-// 포켓몬 데이터를 가져오는 함수
+// 포켓몬 정보를 불러오는 함수
 const fetchPokemonData = async (id: string) => {
     try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const response = await fetch(`${baseUrl}/api/pokemons/${id}`);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || `http://localhost:3000`;
+        const response = await fetch(`${apiUrl}/api/pokemons/${id}`);
         if (!response.ok) {
-            throw new Error('Network response was not ok'); // 응답이 올바르지 않으면 에러 던지기
+            throw new Error(`Network response was not ok: ${response.status}`);
         }
-        const pokemon = await response.json(); // 응답을 JSON으로 파싱
-        return pokemon; // 포켓몬 데이터 반환
+        const pokemon = await response.json();
+        return pokemon;
     } catch (error) {
-        console.error('Error fetching Pokemon data:', error); // 에러를 콘솔에 출력
-        return null; // 에러가 발생하면 null 반환
+        console.error('Error fetching Pokemon data:', error);
+        return null;
     }
 };
 
