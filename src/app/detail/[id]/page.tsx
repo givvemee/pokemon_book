@@ -3,64 +3,6 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
-const fetchPokemonData = async (id: string) => {
-  try {
-    const response = await fetch(
-      `https://pokemon-book-lyart.vercel.app/api/pokemons/${id}`
-    )
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.status}`)
-    }
-    const pokemon = await response.json()
-    return pokemon
-  } catch (error) {
-    console.error('Error fetching Pokemon data:', error)
-    return null
-  }
-}
-
-// 동적 메타데이터 생성 함수
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string }
-}): Promise<Metadata> {
-  const { id } = params // URL에서 포켓몬 id 가져옴
-  const pokemon = await fetchPokemonData(id) // 포켓몬 데이터 가져옴
-
-  if (!pokemon) {
-    return {
-      // 포켓몬 정보를 찾을 수 없는 경우의 메타데이터
-      title: '포켓몬 정보를 찾을 수 없습니다',
-      description: '해당 포켓몬 정보를 찾을 수 없습니다.',
-      keywords: [
-        '포켓몬',
-        'Pokemon',
-        '도감',
-        'react',
-        'nextjs',
-        '프론트앤드개발자',
-      ],
-      authors: [{ name: '이보아' }],
-    }
-  }
-
-  return {
-    // 포켓몬 정보를 찾은 경우의 메타데이터
-    title: `포켓몬 도감 - ${pokemon.korean_name}`,
-    description: `${pokemon.korean_name} 포켓몬의 상세 정보가 담긴 상세페이지입니다.`,
-    keywords: [
-      '포켓몬',
-      'Pokemon',
-      '도감',
-      'react',
-      'nextjs',
-      '프론트앤드개발자',
-    ],
-    authors: [{ name: '이보아' }],
-  }
-}
-
 interface PokemonDetailPageProps {
   params: {
     id: string
@@ -73,65 +15,64 @@ const PokemonDetailPage: React.FC<PokemonDetailPageProps> = async ({
   // 포켓몬 정보를 불러오는 함수
 
   const { id } = params // URL에서 포켓몬 id 가져옴
-  const pokemon = await fetchPokemonData(id)
 
-  // const pokemon = await fetchPokemonData(id) // 포켓몬 데이터 가져옴
-  //   const fetchPokemonData = async (id: string) => {
-  //     try {
-  //       const response = await fetch(
-  //         `https://pokemon-book-lyart.vercel.app/api/pokemons/${id}`
-  //       )
-  //       if (!response.ok) {
-  //         throw new Error(`Network response was not ok: ${response.status}`)
-  //       }
-  //       const pokemon = await response.json()
-  //       return pokemon
-  //     } catch (error) {
-  //       console.error('Error fetching Pokemon data:', error)
-  //       return null
-  //     }
-  //   }
+  const fetchPokemonData = async (id: string) => {
+    try {
+      const response = await fetch(
+        `https://pokemon-book-lyart.vercel.app/api/pokemons/${id}`
+      )
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`)
+      }
+      const pokemon = await response.json()
+      return pokemon
+    } catch (error) {
+      console.error('Error fetching Pokemon data:', error)
+      return null
+    }
+  }
 
-  //   const generateMetadata = async ({
-  //     params,
-  //   }: {
-  //     params: { id: string }
-  //   }): Promise<Metadata> => {
-  //     const { id } = params // URL에서 포켓몬 id 가져옴
-  //     const pokemon = await fetchPokemonData(id) // 포켓몬 데이터 가져옴
+  const generateMetadata = async ({
+    params,
+  }: {
+    params: { id: string }
+  }): Promise<Metadata> => {
+    const { id } = params // URL에서 포켓몬 id 가져옴
+    const pokemon = await fetchPokemonData(id) // 포켓몬 데이터 가져옴
 
-  //     if (!pokemon) {
-  //       return {
-  //         // 포켓몬 정보를 찾을 수 없는 경우의 메타데이터
-  //         title: '포켓몬 정보를 찾을 수 없습니다',
-  //         description: '해당 포켓몬 정보를 찾을 수 없습니다.',
-  //         keywords: [
-  //           '포켓몬',
-  //           'Pokemon',
-  //           '도감',
-  //           'react',
-  //           'nextjs',
-  //           '프론트앤드개발자',
-  //         ],
-  //         authors: [{ name: '이보아' }],
-  //       }
-  //     }
+    if (!pokemon) {
+      return {
+        // 포켓몬 정보를 찾을 수 없는 경우의 메타데이터
+        title: '포켓몬 정보를 찾을 수 없습니다',
+        description: '해당 포켓몬 정보를 찾을 수 없습니다.',
+        keywords: [
+          '포켓몬',
+          'Pokemon',
+          '도감',
+          'react',
+          'nextjs',
+          '프론트앤드개발자',
+        ],
+        authors: [{ name: '이보아' }],
+      }
+    }
 
-  //     return {
-  //       // 포켓몬 정보를 찾은 경우의 메타데이터
-  //       title: `포켓몬 도감 - ${pokemon.korean_name}`,
-  //       description: `${pokemon.korean_name} 포켓몬의 상세 정보가 담긴 상세페이지입니다.`,
-  //       keywords: [
-  //         '포켓몬',
-  //         'Pokemon',
-  //         '도감',
-  //         'react',
-  //         'nextjs',
-  //         '프론트앤드개발자',
-  //       ],
-  //       authors: [{ name: '이보아' }],
-  //     }
-  //   }
+    return {
+      // 포켓몬 정보를 찾은 경우의 메타데이터
+      title: `포켓몬 도감 - ${pokemon.korean_name}`,
+      description: `${pokemon.korean_name} 포켓몬의 상세 정보가 담긴 상세페이지입니다.`,
+      keywords: [
+        '포켓몬',
+        'Pokemon',
+        '도감',
+        'react',
+        'nextjs',
+        '프론트앤드개발자',
+      ],
+      authors: [{ name: '이보아' }],
+    }
+  }
+  const pokemon = await fetchPokemonData(id) // 포켓몬 데이터 가져옴
 
   if (!pokemon) {
     notFound() // 포켓몬이 없으면 404 페이지로 이동
