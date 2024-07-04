@@ -3,48 +3,6 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
-// 동적 메타데이터 생성 함수
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: { id: string }
-// }): Promise<Metadata> {
-//   const { id } = params // URL에서 포켓몬 id 가져옴
-//   const pokemon = await fetchPokemonData(id) // 포켓몬 데이터 가져옴
-
-//   if (!pokemon) {
-//     return {
-//       // 포켓몬 정보를 찾을 수 없는 경우의 메타데이터
-//       title: '포켓몬 정보를 찾을 수 없습니다',
-//       description: '해당 포켓몬 정보를 찾을 수 없습니다.',
-//       keywords: [
-//         '포켓몬',
-//         'Pokemon',
-//         '도감',
-//         'react',
-//         'nextjs',
-//         '프론트앤드개발자',
-//       ],
-//       authors: [{ name: '이보아' }],
-//     }
-//   }
-
-//   return {
-//     // 포켓몬 정보를 찾은 경우의 메타데이터
-//     title: `포켓몬 도감 - ${pokemon.korean_name}`,
-//     description: `${pokemon.korean_name} 포켓몬의 상세 정보가 담긴 상세페이지입니다.`,
-//     keywords: [
-//       '포켓몬',
-//       'Pokemon',
-//       '도감',
-//       'react',
-//       'nextjs',
-//       '프론트앤드개발자',
-//     ],
-//     authors: [{ name: '이보아' }],
-//   }
-// }
-
 interface PokemonDetailPageProps {
   params: {
     id: string
@@ -57,7 +15,9 @@ const PokemonDetailPage: React.FC<PokemonDetailPageProps> = async ({
   // 포켓몬 정보를 불러오는 함수
 
   const { id } = params // URL에서 포켓몬 id 가져옴
-  const response = await fetch(`http://localhost:3000/api/pokemons/${id}`)
+  const response = await fetch(
+    `https://pokemon-book-lyart.vercel.app/api/pokemons/${id}`
+  )
   const data: Pokemon = await response.json()
   // const pokemon = await fetchPokemonData(id) // 포켓몬 데이터 가져옴
   const fetchPokemonData = async (id: string) => {
