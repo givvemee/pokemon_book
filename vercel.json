@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/pokemons/:id",
+            "destination": "/api/pokemons/:id"
+        }
+    ]
+}
