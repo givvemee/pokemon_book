@@ -6,8 +6,7 @@ import type { Metadata } from 'next';
 // 포켓몬 정보를 불러오는 함수
 const fetchPokemonData = async (id: string) => {
     try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const response = await fetch(`${apiUrl}/api/pokemons/${id}`);
+        const response = await fetch(`https://pokemon-book-lyart.vercel.app/api/pokemons/${id}`);
         if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.status}`);
         }
