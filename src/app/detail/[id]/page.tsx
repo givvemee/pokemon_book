@@ -6,7 +6,8 @@ import type { Metadata } from 'next';
 // 포켓몬 데이터를 가져오는 함수
 const fetchPokemonData = async (id: string) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/pokemons/${id}`);
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        const response = await fetch(`${baseUrl}/api/pokemons/${id}`);
         if (!response.ok) {
             throw new Error('Network response was not ok'); // 응답이 올바르지 않으면 에러 던지기
         }
