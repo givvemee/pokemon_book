@@ -3,6 +3,10 @@
         {
             "source": "/pokemons/:id",
             "destination": "/api/pokemons/:id"
+        },
+        {
+            "source": "/detail/:id",
+            "destination": "/detail/[id]"
         }
     ]
 }
