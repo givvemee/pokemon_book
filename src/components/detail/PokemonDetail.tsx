@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-
 interface NameWithKorean {
     name: string;
     korean_name: string;
@@ -16,6 +15,14 @@ interface Pokemon {
     weight: number;
     sprites: {
         front_default: string;
+        other?: {
+            dream_world: {
+                front_default: string | null;
+            };
+            'official-artwork': {
+                front_default: string | null;
+            };
+        };
     };
     types: { type: NameWithKorean }[];
     abilities: { ability: NameWithKorean }[];
@@ -43,12 +50,12 @@ const fetchPokemonData = async (id: string): Promise<Pokemon | null> => {
 
 // 포켓몬 상세 페이지 컴포넌트 정의
 const PokemonDetail: React.FC<PokemonDetailProps> = async ({ id }) => {
-    const pokemon = await fetchPokemonData(id); // 포켓몬 데이터 가져옴
+    const pokemon = await fetchPokemonData(id);
 
     if (!pokemon) {
         notFound(); // 포켓몬이 없으면 404 페이지로 이동
     }
-
+    const pokemonImgSrc = pokemon.sprites.other?.dream_world.front_default || pokemon.sprites.front_default;
     return (
         <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-lg relative mt-0 mb-0 sm:mt-10 sm:mb-10">
             {/* 뒤로가기 버튼 */}
@@ -73,14 +80,8 @@ const PokemonDetail: React.FC<PokemonDetailProps> = async ({ id }) => {
             {/* 캐릭터 이미지 및 정보 섹션 */}
             <section className="flex flex-col md:flex-row gap-8">
                 <div className="md:w-1/2">
-                    <article className="bg-white p-6 pt-0 rounded-lg shadow mb-6">
-                        <Image
-                            src={pokemon.sprites.front_default}
-                            alt={pokemon.name}
-                            width={165}
-                            height={165}
-                            className="mx-auto"
-                        />
+                    <article className="bg-white p-8 rounded-lg shadow mb-6">
+                        <Image src={pokemonImgSrc} alt={pokemon.name} width={125} height={125} className="mx-auto" />
                         <div className="text-center mt-4">
                             <p className="font-semibold">{pokemon.korean_name}</p>
                             <p>키: {pokemon.height / 10} m</p>

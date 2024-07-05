@@ -12,7 +12,7 @@ const PokemonList: React.FC = () => {
     // IntersectionObserver를 참조하기 위한 useRef 사용
     const observer = useRef<IntersectionObserver | null>(null);
 
-    // 마지막 포켓몬 카드 엘리먼트를 참조하기 위한 콜백 함수
+    // 마지막 포켓몬 카드 요소들을 참조하기 위한 콜백 함수
     const lastPokemonElementRef = useCallback(
         (node: HTMLLIElement) => {
             if (fetching) return;
@@ -20,7 +20,7 @@ const PokemonList: React.FC = () => {
 
             observer.current = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting && hasMore) {
-                    fetchNextPage(); // 스크롤 시 다음 페이지 데이터를 불러옴
+                    fetchNextPage(); // 스크롤 시 다음 카드들을 불러옴
                 }
             });
 
@@ -58,7 +58,7 @@ const PokemonList: React.FC = () => {
                 })}
             </ul>
             {(fetching || isFetchingNextPage) && (
-                <div className="flex flex-col justify-center items-center h-20 mt-10">
+                <div className="flex flex-col justify-center items-center mt-18 h-18 z-10">
                     <Image
                         src="/pokemon-ball.png"
                         alt="포켓몬 도감 불러오는중"

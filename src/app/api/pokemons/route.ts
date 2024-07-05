@@ -2,12 +2,12 @@ import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
 
 // 포켓몬 총 개수, 한번에 불러올 포켓몬 개수 설정
-const TOTAL_POKEMON = 121;
+const TOTAL_POKEMON = 120;
 const PAGE_SIZE = 20;
 
 // GET 요청을 처리하는 함수
 export const GET = async (request: Request) => {
-    //요청 URL에서 검색 매개변수를 가져옴
+    // 요청 URL에서 검색 매개변수를 가져옴
     const { searchParams } = new URL(request.url);
     // 페이지 번호를 가져옵니다. 기본값은 1로 설정
     const page = parseInt(searchParams.get('page') || '1');
@@ -26,13 +26,15 @@ export const GET = async (request: Request) => {
             ]) as Promise<[AxiosResponse<any>, AxiosResponse<any>]>;
         }).filter((promise): promise is Promise<[AxiosResponse<any>, AxiosResponse<any>]> => promise !== null);
 
-        // 모든 요청을 병렬로 실행하고 결과를 기다린다.
         const allPokemonResponses = await Promise.all(allPokemonPromises);
 
-        // 요청 결과에서 포켓몬 데이터를 추출 후, 한국어 이름을 추가합니다.
+        // 요청 결과에서 포켓몬 데이터를 추출 후, 한국어 이름을 추가
         const allPokemonData = allPokemonResponses.map(([response, speciesResponse]) => {
             const koreanName = speciesResponse.data.names.find((name: any) => name.language.name === 'ko');
-            return { ...response.data, korean_name: koreanName?.name || null };
+            const dreamWorldImage = response.data.sprites.other.dream_world.front_default;
+            const officialArtworkImage = response.data.sprites.other['official-artwork'].front_default;
+            const image = dreamWorldImage || officialArtworkImage;
+            return { ...response.data, korean_name: koreanName?.name || null, image };
         });
         // JSON 형식으로 포켓몬 데이터를 응답
         return NextResponse.json(allPokemonData);

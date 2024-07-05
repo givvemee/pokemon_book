@@ -7,27 +7,44 @@ interface Pokemon {
     id: number;
     name: string;
     korean_name: string | null;
-    sprites: { front_default: string };
+    sprites: {
+        front_default: string;
+        other: {
+            dream_world: {
+                front_default: string | null;
+            };
+            'official-artwork': {
+                front_default: string | null;
+            };
+        };
+    };
+    image: string | null;
 }
 
 const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
+    const pokemonImgSrc = pokemon.image || pokemon.sprites.front_default;
+
     return (
         <Link href={`/detail/${pokemon.id}`} className={styles.pokemonCard}>
             <div className={styles.cardInner}>
                 {/* 카드 앞면 */}
                 <div className={styles.cardFront}>
                     <div className={`relative ${styles.paperTexture}`}>
-                        <Image
-                            src={pokemon.sprites.front_default}
-                            alt={pokemon.name}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 100vw"
-                            className={`${styles.image} rounded-t-lg`}
-                            style={{ objectFit: 'contain' }}
-                            priority
-                        />
+                        <div className="relative w-full h-full flex justify-center items-center">
+                            <Image
+                                src={pokemonImgSrc}
+                                alt={pokemon.name}
+                                width={120}
+                                height={120}
+                                className={`${styles.image} rounded-t-lg`}
+                                style={{
+                                    objectFit: 'contain',
+                                }}
+                                priority
+                            />
+                        </div>
                     </div>
-                    <div className="absolute bottom-0 left-0 rounded-b-none w-full h-17 bg-custom-blue text-white text-center p-2 rounded-b-lg">
+                    <div className="absolute bottom-0 left-0 w-full h-17 bg-custom-blue text-white text-center p-2 rounded-b-none">
                         <p className="text-2xl font-semibold mt-1">{pokemon.korean_name}</p>
                         <p className="text-base">도감번호: {pokemon.id}</p>
                     </div>
@@ -37,7 +54,7 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
                     <Image
                         src="/card-back.jpg"
                         alt="Pokemon Card Back"
-                        fill
+                        layout="fill"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 240px"
                         className={`${styles.image} rounded-lg`}
                         priority
