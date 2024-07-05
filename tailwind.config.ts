@@ -19,7 +19,7 @@ const config: Config = {
                 '2xl': '1.4rem',
             },
             spacing: {
-                '18': '3.55rem',
+                '18': '3.6rem',
             },
             animation: {
                 'shake-once': 'shake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) 3',
