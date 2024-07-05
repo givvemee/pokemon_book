@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import PokemonDetail from '@/components/(detail)/PokemonDetail';
+import PokemonDetail from '@/components/detail/PokemonDetail';
 import { Metadata } from 'next';
 import { fetchPokemonData } from '@/lib/fetchPokemonData';
 
