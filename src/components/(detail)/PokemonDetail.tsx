@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 interface NameWithKorean {
     name: string;
@@ -22,11 +23,33 @@ interface Pokemon {
 }
 
 interface PokemonDetailProps {
-    pokemon: Pokemon;
+    // pokemon: Pokemon;
+    id: string;
 }
+// 포켓몬 정보를 불러오는 함수
+const fetchPokemonData = async (id: string): Promise<Pokemon | null> => {
+    try {
+        const response = await fetch(`${process.env.BASE_URL}/api/pokemons/${id}`);
 
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.status}`);
+        }
+        const pokemon = await response.json();
+        console.log({ pokemon1: pokemon });
+        return pokemon;
+    } catch (error) {
+        console.error('Error fetching Pokemon data:', error);
+        return null;
+    }
+};
 // 포켓몬 상세 페이지 컴포넌트 정의
-const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon }) => {
+const PokemonDetail: React.FC<PokemonDetailProps> = async ({ id }) => {
+    const pokemon = await fetchPokemonData(id); // 포켓몬 데이터 가져옴
+
+    if (!pokemon) {
+        notFound(); // 포켓몬이 없으면 404 페이지로 이동
+    }
+    // 포켓몬 데이터를 PokemonDetail 컴포넌트에 전달하여 렌더링
     return (
         <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-lg relative mt-0 mb-0 sm:mt-10 sm:mb-10">
             {/* 뒤로가기 버튼 */}
