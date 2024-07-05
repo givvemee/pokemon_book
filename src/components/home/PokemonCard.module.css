@@ -1,4 +1,5 @@
 /* 카드 애니메이션을 위한 css */
+/* 카드 애니메이션을 위한 css */
 .pokemonCard {
     display: block;
     width: 240px;
@@ -16,7 +17,13 @@
     transform-style: preserve-3d;
 }
 
-.pokemonCard:hover .cardInner {
+@media (hover: hover) and (pointer: fine) {
+    .pokemonCard:hover .cardInner {
+        transform: rotateY(180deg);
+    }
+}
+
+.cardInner.flipped {
     transform: rotateY(180deg);
 }
 

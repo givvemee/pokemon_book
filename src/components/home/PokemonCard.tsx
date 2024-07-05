@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './PokemonCard.module.css';
@@ -23,10 +23,34 @@ interface Pokemon {
 
 const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
     const pokemonImgSrc = pokemon.image || pokemon.sprites.front_default;
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const card = cardRef.current;
+        if (!card) return;
+
+        const handleTouchStart = (e: TouchEvent) => {
+            e.preventDefault();
+            card.classList.add(styles.flipped);
+        };
+
+        const handleTouchEnd = (e: TouchEvent) => {
+            e.preventDefault();
+            card.classList.remove(styles.flipped);
+        };
+
+        card.addEventListener('touchstart', handleTouchStart);
+        card.addEventListener('touchend', handleTouchEnd);
+
+        return () => {
+            card.removeEventListener('touchstart', handleTouchStart);
+            card.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, []);
 
     return (
         <Link href={`/detail/${pokemon.id}`} className={styles.pokemonCard}>
-            <div className={styles.cardInner}>
+            <div ref={cardRef} className={styles.cardInner}>
                 {/* 카드 앞면 */}
                 <div className={styles.cardFront}>
                     <div className={`relative ${styles.paperTexture}`}>
