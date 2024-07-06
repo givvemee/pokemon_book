@@ -61,9 +61,6 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
                                 width={120}
                                 height={120}
                                 className={`${styles.image} rounded-t-lg`}
-                                style={{
-                                    objectFit: 'contain',
-                                }}
                                 priority
                             />
                         </div>
