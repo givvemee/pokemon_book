@@ -20,12 +20,6 @@
     transform: rotateY(180deg);
 }
 
-@media (hover: hover) and (pointer: fine) {
-    .pokemonCard:hover .cardInner {
-        transform: rotateY(180deg);
-    }
-}
-
 .cardFront,
 .cardBack {
     position: absolute;
