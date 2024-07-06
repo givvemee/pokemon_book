@@ -16,8 +16,18 @@
     transform-style: preserve-3d;
 }
 
-.pokemonCard:hover .cardInner {
-    transform: rotateY(180deg);
+/* 데스크탑에서 호버 효과 */
+@media (hover: hover) and (pointer: fine) {
+    .pokemonCard:hover .cardInner {
+        transform: rotateY(180deg);
+    }
+}
+
+/* 모바일에서 터치 효과 */
+@media (hover: none) and (pointer: coarse) {
+    .pokemonCard:active .cardInner {
+        transform: scale(1.05);
+    }
 }
 
 .cardFront,
