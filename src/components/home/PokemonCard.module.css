@@ -26,12 +26,6 @@
     transform: rotateY(180deg);
 }
 
-@media (hover: hover) and (pointer: fine) {
-    .pokemonCard:hover .cardInner {
-        transform: rotateY(180deg);
-    }
-}
-
 .cardFront,
 .cardBack {
     position: absolute;
@@ -52,6 +46,26 @@
     transform: rotateY(180deg);
     top: 0;
     left: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .pokemonCard:hover .cardInner {
+        transform: rotateY(180deg);
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .pokemonCard:hover .cardInner {
+        transform: none;
+    }
+
+    .flipped .cardFront {
+        visibility: hidden;
+    }
+
+    .flipped .cardBack {
+        visibility: visible;
+    }
 }
 
 /* 카드 배경 효과를 위한 css */
