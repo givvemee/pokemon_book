@@ -56,14 +56,14 @@
 
 @media (hover: none) and (pointer: coarse) {
     .pokemonCard:hover .cardInner {
-        transform: none;
+        transform: rotateY(180deg);
     }
 
-    .flipped .cardFront {
+    .pokemonCard:hover .cardFront {
         visibility: hidden;
     }
 
-    .flipped .cardBack {
+    .pokemonCard:hover .cardBack {
         visibility: visible;
     }
 }
