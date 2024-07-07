@@ -2,56 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-interface NameWithKorean {
-    name: string;
-    korean_name: string;
-}
+import { PokemonDetailProps } from '@/types/pokemon.type';
 
-interface Pokemon {
-    id: number;
-    name: string;
-    korean_name: string;
-    height: number;
-    weight: number;
-    sprites: {
-        front_default: string;
-        other?: {
-            dream_world: {
-                front_default: string | null;
-            };
-            'official-artwork': {
-                front_default: string | null;
-            };
-        };
-    };
-    types: { type: NameWithKorean }[];
-    abilities: { ability: NameWithKorean }[];
-    moves: { move: NameWithKorean }[];
-}
-
-interface PokemonDetailProps {
-    id: string;
-}
-
-const fetchPokemonData = async (id: string): Promise<Pokemon | null> => {
-    try {
-        const response = await fetch(`${process.env.BASE_URL}/api/pokemons/${id}`);
-
-        if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.status}`);
-        }
-        const pokemon = await response.json();
-        return pokemon;
-    } catch (error) {
-        console.error('Error fetching Pokemon data:', error);
-        return null;
-    }
-};
-
-// 포켓몬 상세 페이지 컴포넌트 정의
-const PokemonDetail: React.FC<PokemonDetailProps> = async ({ id }) => {
-    const pokemon = await fetchPokemonData(id);
-
+const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon }) => {
     if (!pokemon) {
         notFound();
     }

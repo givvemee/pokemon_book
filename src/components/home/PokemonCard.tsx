@@ -2,24 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './PokemonCard.module.css';
-
-interface Pokemon {
-    id: number;
-    name: string;
-    korean_name: string | null;
-    sprites: {
-        front_default: string;
-        other: {
-            dream_world: {
-                front_default: string | null;
-            };
-            'official-artwork': {
-                front_default: string | null;
-            };
-        };
-    };
-    image: string | null;
-}
+import { Pokemon } from '@/types/pokemon.type';
 
 const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
     const pokemonImgSrc = pokemon.image || pokemon.sprites.front_default;

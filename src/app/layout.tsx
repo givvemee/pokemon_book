@@ -4,11 +4,11 @@ import type { Metadata } from 'next';
 import Providers from './providers';
 import UpButton from '@/components/UpButton';
 
-// 메인데이터 설정
+// 메인 메타데이터 설정
 export const metadata: Metadata = {
     title: '포켓몬 도감',
     description: 'next.js로 만드는 포켓몬 도감 리스트가 있는 메인페이지 입니다',
-    keywords: ['포켓몬', 'Pokemon', '도감', 'react', 'nextjs', '프론트앤드개발자'],
+    keywords: ['포켓몬', 'Pokemon', '도감', 'react', 'next.js', '프론트앤드개발자'],
     authors: [{ name: '이보아' }],
     icons: {
         icon: '/favicon/favicon.png',
