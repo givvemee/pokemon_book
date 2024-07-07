@@ -26,6 +26,7 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
     const handleTouch = (e: React.TouchEvent) => {
+        // 모바일 클릭했을때 이슈 수정
         const touchDuration = 200;
         let timer: NodeJS.Timeout;
 

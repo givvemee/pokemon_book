@@ -3,9 +3,15 @@
     display: block;
     width: 240px;
     height: 336px;
-    margin: 8px;
-    perspective: 1000px;
+    margin: 24px 8px;
+    perspective: 1500px;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.pokemonCard:hover {
+    z-index: 2;
 }
 
 .cardInner {
@@ -44,6 +50,8 @@
 .cardBack {
     background-color: #004076;
     transform: rotateY(180deg);
+    top: 0;
+    left: 0;
 }
 
 /* 카드 배경 효과를 위한 css */
