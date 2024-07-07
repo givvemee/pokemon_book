@@ -53,7 +53,7 @@ const PokemonDetail: React.FC<PokemonDetailProps> = async ({ id }) => {
     const pokemon = await fetchPokemonData(id);
 
     if (!pokemon) {
-        notFound(); // 포켓몬이 없으면 404 페이지로 이동
+        notFound();
     }
     const pokemonImgSrc = pokemon.sprites.other?.dream_world.front_default || pokemon.sprites.front_default;
     return (
@@ -80,8 +80,10 @@ const PokemonDetail: React.FC<PokemonDetailProps> = async ({ id }) => {
             {/* 캐릭터 이미지 및 정보 섹션 */}
             <section className="flex flex-col md:flex-row gap-8">
                 <div className="md:w-1/2">
-                    <article className="bg-white p-8 rounded-lg shadow mb-6">
-                        <Image src={pokemonImgSrc} alt={pokemon.name} width={125} height={125} className="mx-auto" />
+                    <article className="bg-white p-6 rounded-lg shadow h-275px">
+                        <div className="relative h-130px">
+                            <Image src={pokemonImgSrc} alt={pokemon.name} fill className="object-contain" />
+                        </div>
                         <div className="text-center mt-4">
                             <p className="font-semibold">{pokemon.korean_name}</p>
                             <p>키: {pokemon.height / 10} m</p>
@@ -91,7 +93,7 @@ const PokemonDetail: React.FC<PokemonDetailProps> = async ({ id }) => {
                 </div>
 
                 {/* 캐릭터 타입 및 특성 섹션 */}
-                <div className="md:w-1/2">
+                <div className="md:w-1/2 ">
                     <section className="bg-white p-6 rounded-lg shadow mb-6">
                         <h2 className="text-2xl font-semibold mb-4">타입</h2>
                         <div className="flex flex-wrap gap-2">

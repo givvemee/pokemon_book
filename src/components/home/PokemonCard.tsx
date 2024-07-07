@@ -54,14 +54,15 @@ const PokemonCard: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
                 <div className={styles.cardFront}>
                     <div className={`relative ${styles.paperTexture}`}>
                         <div className="relative w-full h-full flex justify-center items-center">
-                            <Image
-                                src={pokemonImgSrc}
-                                alt={pokemon.name}
-                                width={120}
-                                height={120}
-                                className={`${styles.image} rounded-t-lg`}
-                                priority
-                            />
+                            <div className="relative w-full h-130px">
+                                <Image
+                                    src={pokemonImgSrc}
+                                    alt={pokemon.name}
+                                    fill
+                                    className={`${styles.image} rounded-t-lg`}
+                                    priority
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className="absolute bottom-0 left-0 w-full h-17 bg-custom-blue text-white text-center p-2 rounded-b-none">

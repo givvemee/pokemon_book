@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
 
 // 포켓몬 총 개수, 한번에 불러올 포켓몬 개수 설정
-const TOTAL_POKEMON = 120;
+const TOTAL_POKEMON = 151;
 const PAGE_SIZE = 20;
 
 // GET 요청을 처리하는 함수

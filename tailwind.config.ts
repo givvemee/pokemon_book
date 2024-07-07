@@ -21,6 +21,10 @@ const config: Config = {
             spacing: {
                 '18': '3.64rem',
             },
+            height: {
+                '130px': '130px',
+                '275px': '275px',
+            },
             animation: {
                 'shake-once': 'shake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) 3',
             },
