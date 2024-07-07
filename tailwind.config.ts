@@ -19,7 +19,7 @@ const config: Config = {
                 '2xl': '1.4rem',
             },
             spacing: {
-                '18': '3.64rem',
+                '18': '3.8rem',
             },
             height: {
                 '130px': '130px',
