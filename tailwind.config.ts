@@ -9,7 +9,7 @@ const config: Config = {
     theme: {
         extend: {
             fontFamily: {
-                chicken: ['Ownglyph_eunbyul21-Rg', 'sans-serif'],
+                custom: ['Ownglyph_eunbyul21-Rg', 'sans-serif'],
             },
             colors: {
                 'custom-blue': '#004076',
