@@ -23,7 +23,7 @@ export default function RootLayout({
     return (
         <html lang="ko">
             <Providers>
-                <body className="font-chicken">
+                <body>
                     <UpButton />
                     {children}
                 </body>
